@@ -45,6 +45,7 @@ export default Vue.extend({
   display: flex;
   flex-direction: column;
   gap: 3px;
+  margin: auto;
 }
 
 .character__row-info {

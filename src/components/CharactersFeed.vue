@@ -40,4 +40,11 @@ export default Vue.extend({
   flex-wrap: wrap;
   gap: 3rem;
 }
+
+@media screen and (max-width: 768px) {
+  .characters-feed {
+    flex-direction: column;
+    gap: 3rem;
+  }
+}
 </style>
