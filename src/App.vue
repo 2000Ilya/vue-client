@@ -1,32 +1,69 @@
 <template>
   <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
-    <router-view />
+    <Paginator
+      v-if="pages !== null"
+      v-bind:totalCount="pages.length"
+      v-bind:siblingCount="3"
+      v-bind:currentPage="currentPage"
+      v-bind:pages="pages"
+      v-bind:pagesMiddleRange="
+        currentPage > 2 && pages.length - currentPage > 2
+          ? pages.slice(
+              pages.indexOf(currentPage) - 1,
+              pages.indexOf(currentPage) + 2
+            )
+          : pages.length - currentPage <= 2
+          ? pages.slice(pages.length - 4, pages.length - 1)
+          : pages.slice(1, 4)
+      "
+      v-bind:setPage="setPage"
+    />
+    <div v-else><Loader /></div>
   </div>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script lang="ts">
+import Vue from "vue";
+import Paginator from "@/components/Paginator.vue";
+import Loader from "@/components/Loader.vue";
+import apiCharacterRequest from "./utils/apiCharacterRequest";
+import { Character, DataInfo } from "./utils/types";
 
-nav {
-  padding: 30px;
-}
+export default Vue.extend({
+  components: {
+    Paginator,
+    Loader,
+  },
+  data() {
+    return {
+      pages: null as number[] | null,
+      characters: null as Character[] | null,
+      currentPage: 1,
+      info: null as DataInfo | null,
+    };
+  },
+  methods: {
+    setPage: function (page: number) {
+      this.currentPage = page;
+    },
+    getData: function () {
+      apiCharacterRequest(this.currentPage).then((response) => {
+        this.characters = response.data.results;
+        this.info = response.data.info;
 
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+        this.pages = Array(response.data.info.pages)
+          .fill(null)
+          .map((_, index) => index + 1);
+      });
+    },
+  },
+  watch: {
+    currentPage: function () {
+      this.getData();
+    },
+  },
+  mounted() {
+    this.getData();
+  },
+});
+</script>
