@@ -6,9 +6,15 @@ Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
   {
-    path: "/:page",
+    path: "/:page(\\d+)",
     name: "page",
     component: CharactersFeed,
+  },
+  {
+    path: "/*",
+    redirect: () => {
+      return { path: "/1" };
+    },
   },
 ];
 

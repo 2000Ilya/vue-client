@@ -1,13 +1,9 @@
 <template>
   <div id="app">
-    <div v-if="pages !== null && characters !== null">
-      <CharactersFeed
-        class="app__characters-feed"
-        v-bind:characters="characters"
-      />
+    <div v-if="pages !== null && characters !== null && currentPage !== null">
+      <router-view class="app__characters-feed" :characters="characters" />
       <Paginator
         v-bind:totalCount="pages.length"
-        v-bind:siblingCount="3"
         v-bind:currentPage="currentPage"
         v-bind:pages="pages"
         v-bind:pagesMiddleRange="
@@ -30,33 +26,31 @@
 <script lang="ts">
 import Vue from "vue";
 import Paginator from "@/components/Paginator.vue";
-import CharactersFeed from "@/components/CharactersFeed.vue";
 import Loader from "@/components/Loader.vue";
 import apiCharacterRequest from "./utils/apiCharacterRequest";
-import { Character, DataInfo } from "./utils/types";
+import { Character } from "./utils/types";
+import router from "./router";
 
 export default Vue.extend({
+  router,
   components: {
     Paginator,
     Loader,
-    CharactersFeed,
   },
   data() {
     return {
       pages: null as number[] | null,
       characters: null as Character[] | null,
-      currentPage: 1,
-      // info: null as DataInfo | null,
+      currentPage: null as number | null,
     };
   },
   methods: {
     setPage: function (page: number) {
       this.currentPage = page;
     },
-    getData: function () {
-      apiCharacterRequest(this.currentPage).then((response) => {
+    getData: function (page: number) {
+      apiCharacterRequest(page).then((response) => {
         this.characters = response.data.results;
-        // this.info = response.data.info;
 
         this.pages = Array(response.data.info.pages)
           .fill(null)
@@ -66,11 +60,14 @@ export default Vue.extend({
   },
   watch: {
     currentPage: function () {
-      this.getData();
+      if (this.currentPage && this.currentPage !== null) {
+        this.getData(this.currentPage);
+        this.$router.push(`/${this.currentPage}`);
+      }
     },
   },
   mounted() {
-    this.getData();
+    this.currentPage = Number(this.$route.params.page);
   },
 });
 </script>
