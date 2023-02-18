@@ -5,9 +5,12 @@
       <span
         class="character-status"
         :class="{
-          'character__status-alive': status === 'Alive',
-          'character__status-dead': status === 'Dead',
-          'character__status-unknown': status === 'Unknown',
+          'character__status-alive':
+            status.toLowerCase() === 'Alive'.toLowerCase(),
+          'character__status-dead':
+            status.toLowerCase() === 'Dead'.toLowerCase(),
+          'character__status-unknown':
+            status.toLowerCase() === 'Unknown'.toLowerCase(),
         }"
         >{{ status }}</span
       >
