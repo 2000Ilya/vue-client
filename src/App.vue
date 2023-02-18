@@ -62,7 +62,9 @@ export default Vue.extend({
     currentPage: function () {
       if (this.currentPage && this.currentPage !== null) {
         this.getData(this.currentPage);
-        this.$router.push(`/${this.currentPage}`);
+        if (this.$route.params.page !== String(this.currentPage)) {
+          this.$router.push(`/${this.currentPage}`);
+        }
       }
     },
   },
