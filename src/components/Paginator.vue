@@ -58,7 +58,6 @@ export default {
   name: "Paginator",
   props: {
     totalCount: { required: true, type: Number },
-    siblingCount: { required: true, type: Number },
     currentPage: { required: true, type: Number },
     pages: { required: true, type: Array as PropType<number[]> },
     pagesMiddleRange: { required: true, type: Array as PropType<number[]> },
