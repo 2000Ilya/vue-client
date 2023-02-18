@@ -2,12 +2,12 @@
   <div class="characters-feed">
     <Character
       v-for="character in characters"
-      v-bind:key="character.id"
-      v-bind:gender="character.gender"
-      v-bind:name="character.name"
-      v-bind:status="character.status"
-      v-bind:origin="character.origin.name"
-      v-bind:image="character.image"
+      :key="character.id"
+      :gender="character.gender"
+      :name="character.name"
+      :status="character.status"
+      :origin="character.origin.name"
+      :image="character.image"
     />
   </div>
 </template>

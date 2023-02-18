@@ -2,7 +2,7 @@
   <div class="picture-container">
     <img
       v-show="isLoaded"
-      v-bind:src="imgSrc"
+      :src="imgSrc"
       class="picture"
       alt="character"
       @load="onImgLoad"

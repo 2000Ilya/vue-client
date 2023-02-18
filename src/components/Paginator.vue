@@ -3,7 +3,7 @@
     <div v-if="totalCount > 5" class="paginator-container">
       <button
         @click.prevent="() => setPage(1)"
-        v-bind:class="{
+        :class="{
           'paginator__current-page': currentPage === 1,
         }"
         class="paginator__btn"
@@ -15,7 +15,7 @@
         v-for="pageNum in pagesMiddleRange"
         :key="pageNum"
         @click.prevent="() => setPage(pageNum)"
-        v-bind:class="{
+        :class="{
           'paginator__current-page': currentPage === pageNum,
         }"
         class="paginator__btn"
@@ -27,7 +27,7 @@
       </span>
       <button
         @click.prevent="() => setPage(pages[totalCount - 1])"
-        v-bind:class="{
+        :class="{
           'paginator__current-page': currentPage === pages[totalCount - 1],
         }"
         class="paginator__btn"
@@ -40,7 +40,7 @@
         v-for="pageNum in pages"
         :key="pageNum"
         @click.prevent="() => setPage(pageNum)"
-        v-bind:class="{
+        :class="{
           'paginator__current-page': currentPage === pageNum,
         }"
         class="paginator__btn"

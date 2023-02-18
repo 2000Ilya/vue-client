@@ -4,7 +4,7 @@
       <span class="character-name">{{ name }}</span>
       <span
         class="character-status"
-        v-bind:class="{
+        :class="{
           'character__status-alive': status === 'Alive',
           'character__status-dead': status === 'Dead',
           'character__status-unknown': status === 'Unknown',
@@ -16,7 +16,7 @@
       <span class="character-gender">{{ gender }}</span>
       <span class="character-origin">{{ origin }}</span>
     </div>
-    <Picture v-bind:imgSrc="image" />
+    <Picture :imgSrc="image" />
   </div>
 </template>
 

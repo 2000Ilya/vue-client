@@ -3,10 +3,10 @@
     <div v-if="pages !== null && characters !== null && currentPage !== null">
       <router-view class="app__characters-feed" :characters="characters" />
       <Paginator
-        v-bind:totalCount="pages.length"
-        v-bind:currentPage="currentPage"
-        v-bind:pages="pages"
-        v-bind:pagesMiddleRange="
+        :totalCount="pages.length"
+        :currentPage="currentPage"
+        :pages="pages"
+        :pagesMiddleRange="
           currentPage > 2 && pages.length - currentPage > 2
             ? pages.slice(
                 pages.indexOf(currentPage) - 1,
@@ -16,7 +16,7 @@
             ? pages.slice(pages.length - 4, pages.length - 1)
             : pages.slice(1, 4)
         "
-        v-bind:setPage="setPage"
+        :setPage="setPage"
       />
     </div>
     <div v-else><Loader /></div>
