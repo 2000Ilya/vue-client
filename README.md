@@ -13,7 +13,7 @@
 ## App has a mobile layout
 
 <p align="center">
-<img src="./readme-assets/mobile-layout.png" width="50%"></p>
+<img src="./readme-assets/mobile-layout.png" width="30%"></p>
 
 ### All the data is taken from an API: [https://rickandmortyapi.com/api/](https://rickandmortyapi.com/api/)
 
